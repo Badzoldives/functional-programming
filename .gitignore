@@ -1,0 +1,25 @@
+### Rust (Axum) ###
+backend/target/
+backend/.cargo/
+
+### Vue (Vite) ###
+frontend/node_modules/
+frontend/dist/
+
+### VS Code / Visual Studio ###
+.vscode/
+.vs/
+*.suo
+*.user
+*.cache
+
+### Logs ###
+*.log
+
+### System ###
+Thumbs.db
+.DS_Store
+
+### Temp ###
+*.tmp
+*.swp
