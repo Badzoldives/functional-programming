@@ -17,14 +17,6 @@ const handleWatermark = (files) => {
   watermark.value = files[0]
 }
 
-const openFotoPicker = () => {
-  fotoInput.value.click()
-}
-
-const openWatermarkPicker = () => {
-  watermarkInput.value.click()
-}
-
 const startProcess = async () => {
   if (photos.value.length === 0 || !watermark.value) {
     message.value = 'Harap unggah foto & watermark!'
@@ -53,7 +45,7 @@ const startProcess = async () => {
     a.click()
 
     message.value = 'Berhasil! ZIP berhasil didownload.'
-  } catch (err) {
+  } catch {
     message.value = 'Gagal memproses foto.'
   }
 
@@ -66,14 +58,14 @@ const startProcess = async () => {
     <div class="card">
       <h1 class="title">Aplikasi Watermark Paralel</h1>
 
-      <!-- Foto -->
+      <!-- FOTO -->
       <div
         class="dropzone"
-        @click="openFotoPicker"
+        @click="fotoInput.click()"
         @dragover.prevent
         @drop.prevent="handlePhotos($event.dataTransfer.files)"
       >
-        <p>Tarik banyak foto ke sini atau klik</p>
+        <p class="label">Tarik banyak foto ke sini atau klik</p>
         <p class="count">{{ photos.length }} foto dipilih</p>
         <input
           type="file"
@@ -84,15 +76,17 @@ const startProcess = async () => {
         />
       </div>
 
-      <!-- Watermark -->
+      <!-- WATERMARK -->
       <div
         class="dropzone"
-        @click="openWatermarkPicker"
+        @click="watermarkInput.click()"
         @dragover.prevent
         @drop.prevent="handleWatermark($event.dataTransfer.files)"
       >
-        <p>Tarik Watermark PNG ke sini</p>
-        <p class="count">{{ watermark ? watermark.name : 'Belum dipilih' }}</p>
+        <p class="label">Tarik Watermark PNG ke sini</p>
+        <p class="count">
+          {{ watermark ? watermark.name : 'Belum dipilih' }}
+        </p>
         <input
           type="file"
           ref="watermarkInput"
@@ -112,51 +106,85 @@ const startProcess = async () => {
 </template>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #0d0d0d;
+  font-family: 'Inter', sans-serif;
+}
+
 .wrapper {
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #0d0d0d;
 }
 
 .card {
   background: #1a1a1a;
-  width: 420px;
-  padding: 28px;
+  width: 380px;
+  padding: 32px;
   border-radius: 14px;
   text-align: center;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.3s ease-out;
 }
 
 .title {
-  color: white;
-  margin-bottom: 24px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 26px;
 }
 
 .dropzone {
   border: 2px dashed #555;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 22px;
   border-radius: 10px;
+  margin-bottom: 20px;
   cursor: pointer;
-  color: #aaa;
+  transition: 0.2s;
+}
+
+.dropzone:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.label {
+  color: #ddd;
+  font-size: 14px;
 }
 
 .count {
+  margin-top: 4px;
   font-size: 12px;
   color: #888;
 }
 
 .btn {
-  background: #4da3ff;
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   border-radius: 8px;
   border: none;
-  color: white;
-  font-weight: bold;
+  background: #4da3ff;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background: #2b8cff;
 }
 
 .btn:disabled {
@@ -165,7 +193,20 @@ const startProcess = async () => {
 }
 
 .message {
-  margin-top: 10px;
-  color: #ff8080;
+  margin-top: 12px;
+  color: #ff7f7f;
+  font-size: 13px;
+  min-height: 18px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
